@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ClassroomForm from './ClassroomForm';
 import Classrooms from './Classrooms';
+import uuidV4 from 'uuid/v4';
 
 export default class School extends Component {
   constructor(props) {
@@ -11,9 +12,19 @@ export default class School extends Component {
     }
   }
 
+  componentWillMount = () => {
+    this.setState({
+      classrooms: [
+        ...this.state.classrooms,
+        {id: uuidV4(), name: "First Room", subject: "Math", room: "1"},
+        {id: uuidV4(),name: "Second Room", subject: "Chemistry", room: "2"},
+      ]
+    });
+  }
+
   addClassroom = (classroom) => {
     this.setState({
-      classrooms: [...this.state.classrooms, classroom],
+      classrooms: [...this.state.classrooms, {id: uuidV4(), ...classroom}],
     })
   }
 
