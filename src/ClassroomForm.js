@@ -5,11 +5,25 @@ export default class ClassroomForm extends Component {
     super(props);
 
     this.initialState = {
+      id: null,
       name: "",
       subject: "",
       room: "",
     }
     this.state = this.initialState;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { id, name, subject, room } = nextProps.classroom;
+
+    if(id && this.props.editing !== nextProps.editing) {
+      this.setState({
+        id: id,
+        name: name,
+        subject: subject,
+        room: room,
+      });
+    }
   }
 
   handleChange = (event) => {

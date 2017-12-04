@@ -9,6 +9,7 @@ export default class School extends Component {
 
     this.state = {
       classrooms: [],
+      editing: null,
     }
   }
 
@@ -28,12 +29,28 @@ export default class School extends Component {
     })
   }
 
+  editClassroom = (id) => {
+    this.setState({
+      editing: id,
+    })
+  }
+
+  findClassroom = (id) => {
+    return this.state.classrooms.find((el) => el.id === id);
+  }
+
   render() {
     return (
       <div>
         <h1>School App</h1>
-        <ClassroomForm onSubmit={this.addClassroom.bind(this)} />
-        <Classrooms classrooms={this.state.classrooms} />
+        <ClassroomForm
+          onSubmit={this.addClassroom.bind(this)}
+          editing={this.state.editing}
+          classroom={this.findClassroom(this.state.editing)}
+        />
+        <Classrooms
+          classrooms={this.state.classrooms}
+          onEdit={this.editClassroom.bind(this)} />
       </div>
     );
   }
